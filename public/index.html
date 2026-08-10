@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether | Premium Desk Setup & Audiophile Gear</title>
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar (Dynamic Shipping Threshold Tracker) -->
+  <div class="announcement-bar" id="announcementBar">
+    <div class="announcement-content">
+      <i data-lucide="truck" class="icon-truck"></i>
+      <span id="announcementText">Get FREE Delivery on all orders! No minimum purchase required.</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container container">
+      <div class="logo-area" onclick="navigateTo('shop')">
+        <div class="logo-glow"></div>
+        <span class="logo-text">AETHER</span>
+      </div>
+      
+      <nav class="nav-links">
+        <a href="#" class="nav-link active" id="navShop" onclick="navigateTo('shop')">Shop</a>
+        <a href="#" class="nav-link" id="navTrack" onclick="navigateTo('track')">Track Order</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Search bar inside header -->
+        <div class="search-box">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" id="searchInput" placeholder="Search setups...">
+        </div>
+        
+        <!-- Cart trigger -->
+        <button class="cart-trigger" onclick="toggleCart(true)">
+          <i data-lucide="shopping-bag"></i>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="heroSection">
+    <div class="hero-bg-glow"></div>
+    <div class="hero-content container">
+      <span class="hero-subtitle">Premium Desk Setup Labs</span>
+      <h1 class="hero-title">Elevate Your <br><span class="gradient-text">Productivity Arena</span></h1>
+      <p class="hero-description">Experience precision acoustic tuning and gasket-mounted acoustic tactile keyboard builds designed for high-performance workspaces.</p>
+      <button class="btn btn-primary btn-lg" onclick="scrollToCatalog()">
+        <span>Explore Collection</span>
+        <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- Main Workspace -->
+  <main class="container" id="mainContent">
+    
+    <!-- Shop Page -->
+    <div id="shopPage" class="page-view active">
+      <!-- Category & Sort Row -->
+      <div class="filter-bar">
+        <div class="category-tabs">
+          <button class="tab-btn active" onclick="filterCategory('all', this)">All Products</button>
+          <button class="tab-btn" onclick="filterCategory('Keyboards', this)">Keyboards</button>
+          <button class="tab-btn" onclick="filterCategory('Audio', this)">Audio</button>
+          <button class="tab-btn" onclick="filterCategory('Accessories', this)">Accessories</button>
+        </div>
+
+        <div class="sort-selector-wrapper">
+          <i data-lucide="sliders-horizontal" class="sort-icon"></i>
+          <select id="sortSelect" onchange="handleSortChange()">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Rating: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="productsGrid">
+        <!-- JS injects product cards here -->
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Loading custom gear catalog...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Track Order Page -->
+    <div id="trackPage" class="page-view">
+      <div class="track-card glass-panel">
+        <div class="track-header">
+          <i data-lucide="package-search" class="track-logo"></i>
+          <h2>Track Your Workspace Order</h2>
+          <p>Enter your workspace order receipt number to fetch delivery stages and order summary.</p>
+        </div>
+
+        <div class="track-form">
+          <div class="input-group">
+            <input type="text" id="trackInput" placeholder="e.g. ORD-1723249339245-8842">
+            <button class="btn btn-primary" onclick="trackOrderSubmit()">
+              <span>Track Details</span>
+              <i data-lucide="search"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="track-result-container" id="trackResult">
+          <!-- JS injects tracking results here -->
+          <div class="track-placeholder">
+            <i data-lucide="clock" class="placeholder-icon"></i>
+            <p>Awaiting search parameters...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Cart Slide-over Panel (Drawer) -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <div class="cart-title-area">
+        <i data-lucide="shopping-bag" class="text-glow"></i>
+        <h3>Workspace Cart</h3>
+      </div>
+      <button class="btn-close" onclick="toggleCart(false)">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <!-- Free Delivery Progress Bar Indicator inside Cart -->
+    <div class="shipping-progress-card" id="cartShippingProgress">
+      <div class="shipping-status-txt" id="shippingStatusText">Add gear worth ₹2,000 for FREE Delivery</div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="shippingProgressBar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <div class="cart-items" id="cartItemsContainer">
+      <!-- Dynamic cart items list -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="summary-line">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">₹0.00</span>
+      </div>
+      <div class="summary-line">
+        <span>Delivery Charge</span>
+        <span id="cartDeliveryCharge" class="highlight-charge">₹0.00</span>
+      </div>
+      <div class="divider"></div>
+      <div class="summary-line total-line">
+        <span>Total</span>
+        <span id="cartTotal" class="text-glow">₹0.00</span>
+      </div>
+
+      <button class="btn btn-primary btn-block checkout-btn" id="checkoutBtn" onclick="openCheckoutModal()" disabled>
+        <span>Proceed to Checkout</span>
+        <i data-lucide="credit-card"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Checkout Form Modal -->
+  <div class="modal-overlay" id="checkoutModalOverlay" onclick="closeCheckoutModal()"></div>
+  <div class="checkout-modal glass-panel" id="checkoutModal">
+    <button class="btn-close modal-close-btn" onclick="closeCheckoutModal()">
+      <i data-lucide="x"></i>
+    </button>
+    
+    <div class="checkout-grid">
+      <!-- Shipping Form -->
+      <div class="checkout-form-section">
+        <h2>Delivery Destination</h2>
+        <p class="subtitle">Complete shipping details to secure order creation.</p>
+        
+        <form id="checkoutForm" onsubmit="handlePlaceOrder(event)">
+          <div class="form-group">
+            <label for="shippingName">Full Name</label>
+            <input type="text" id="shippingName" required placeholder="e.g. Rahul Sharma">
+          </div>
+          <div class="form-group">
+            <label for="shippingEmail">Email Address</label>
+            <input type="email" id="shippingEmail" required placeholder="e.g. rahul@example.com">
+          </div>
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="shippingPhone">Phone Number</label>
+              <input type="tel" id="shippingPhone" required placeholder="e.g. +91 9876543210">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="shippingAddress">Shipping Address</label>
+            <textarea id="shippingAddress" rows="3" required placeholder="Street address, apartment, city, state, pincode"></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-block place-order-btn">
+            <span>Confirm & Place Order</span>
+            <i data-lucide="check-circle-2"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Checkout Items Summary -->
+      <div class="checkout-summary-section">
+        <h3>Order Receipt Details</h3>
+        <div class="checkout-summary-items" id="checkoutSummaryItems">
+          <!-- Items list -->
+        </div>
+        <div class="divider"></div>
+        <div class="checkout-summary-pricing">
+          <div class="summary-line">
+            <span>Items Subtotal</span>
+            <span id="checkoutSubtotal">₹0.00</span>
+          </div>
+          <div class="summary-line">
+            <span>Shipping Charge</span>
+            <span id="checkoutDelivery">₹0.00</span>
+          </div>
+          <div class="divider"></div>
+          <div class="summary-line total-line">
+            <span>Total Payable</span>
+            <span id="checkoutTotal" class="text-glow">₹0.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container container">
+      <div class="footer-brand">
+        <h3>AETHER</h3>
+        <p>Premium craft workspace accessories. Engine for flow state.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>Explore</h4>
+          <a href="#" onclick="navigateTo('shop')">Shop Gear</a>
+          <a href="#" onclick="navigateTo('track')">Track Order</a>
+        </div>
+        <div>
+          <h4>Policies</h4>
+          <a href="#">Shipping Details (Free Delivery)</a>
+          <a href="#">Warranty Info</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; 2026 AETHER Lab. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Initialize Lucide Icons -->
+  <script>
+    // Lucide initialization helper
+    function refreshIcons() {
+      lucide.createIcons();
+    }
+    document.addEventListener("DOMContentLoaded", refreshIcons);
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

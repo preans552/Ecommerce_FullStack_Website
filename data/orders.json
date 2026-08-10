@@ -1,0 +1,55 @@
+[
+  {
+    "orderId": "ORD-1786338666026-7154",
+    "customer": {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "9988776655",
+      "address": "Sector 5, Salt Lake, Kolkata, West Bengal, 700091"
+    },
+    "items": [
+      {
+        "id": "prod_01",
+        "name": "Apex Pro Mechanical Keyboard",
+        "price": 1499,
+        "quantity": 1,
+        "itemTotal": 1499
+      },
+      {
+        "id": "prod_03",
+        "name": "Aura Screen Lightbar",
+        "price": 899,
+        "quantity": 1,
+        "itemTotal": 899
+      }
+    ],
+    "subtotal": 2398,
+    "deliveryCharge": 0,
+    "total": 2398,
+    "status": "Processing",
+    "createdAt": "2026-08-10T05:11:06.026Z"
+  },
+  {
+    "orderId": "ORD-1786338781861-8232",
+    "customer": {
+      "name": "Smruti Ranjan Swain",
+      "email": "smrutiranjanswain066@gmail.com",
+      "phone": "+919692704987",
+      "address": "Raghunath nagar lane 1\nnear vishal mega mart"
+    },
+    "items": [
+      {
+        "id": "prod_01",
+        "name": "Apex Pro Mechanical Keyboard",
+        "price": 1499,
+        "quantity": 1,
+        "itemTotal": 1499
+      }
+    ],
+    "subtotal": 1499,
+    "deliveryCharge": 150,
+    "total": 1649,
+    "status": "Processing",
+    "createdAt": "2026-08-10T05:13:01.861Z"
+  }
+]

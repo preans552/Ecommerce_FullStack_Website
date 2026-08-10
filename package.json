@@ -1,0 +1,12 @@
+{
+  "name": "premium-ecommerce",
+  "version": "1.0.0",
+  "description": "Premium E-commerce Platform with Dynamic Shipping",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
